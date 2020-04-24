@@ -20,8 +20,12 @@ async def say(context, arg):
 async def on_ready():
     print("Запущен!")
 
+
+@bot.event
 @do.bot_has_permissions(manage_roles = True, manage_nicknames = True)
 async def on_message(message):
+    # todo: delete message after assigning
+    # todo: check if has role except @everyone - GTFO!
 
     async def assign(role, name):
         msg = role
@@ -31,9 +35,9 @@ async def on_message(message):
             if re.match(msg, role.name) is not None:
                 print("Assigning...", member.id, role.id)
                 if member.nick is not None:
-                    tosay = "Я выдал " + member.nick + "права на доступ к " + role.name
+                    tosay = "Я выдал " + member.nick + " права на доступ к " + role.name
                 else:
-                    tosay = "Я выдал " + member.name + "права на доступ к " + role.name
+                    tosay = "Я выдал " + member.name + " права на доступ к " + role.name
                 await member.edit(roles=[role])
         return tosay
 
@@ -86,11 +90,9 @@ async def on_message(message):
 
 
 # Make sure bot is not assigning itself
-    
 
 
-
-    # if len(msg) > 4:
+# if len(msg) > 4:
     #     tosay = "Что-то это не очень похоже на класс. Попробуй по-другому!"
     #     classFound = False
     # else:
