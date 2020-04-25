@@ -28,10 +28,10 @@ async def on_message(message):
     # todo: check if has role except @everyone - GTFO!
     async def assign(role, name):
         msg = role
-        tosay = ", что-то я не могу найти такие права. Обратитесь к <@!697160016129687733> :x:"
+        tosay = ", что-то я не могу найти такие права.:no_entry:\n Обратитесь к <@!697160016129687733> :sos:"
         if len(member.roles) > 1:
-            tosay = ", права доступа уже назначены. **Система не предполагает привязку более чем к одному классу.**\n" \
-                    "Если вы считаете, что данное сообщение возникло по ошибке - обратитесь к администратору <@!697160016129687733> :x:"
+            tosay = ", права доступа уже назначены. **Система не предполагает привязку более чем к одному классу.** :no_entry:\n" \
+                    "Если вы считаете, что данное сообщение возникло по ошибке - обратитесь к администратору <@!697160016129687733> :sos:"
         else:
             await member.edit(nick=name)
             for role in serverroles:
@@ -67,8 +67,9 @@ async def on_message(message):
             tosay = ", неверный пароль! Попробуй ещё раз... :x:"
         # Ensure nobody reads password
         if re.match(r"[A-Z0123456789]{6,8}", true_content):
-            true_content = "██████ ||[ДАННЫЕ_УДАЛЕНЫ]||"
-        await channel.send("**:arrow_right:**" + mention + " пишет сообщение: " + true_content)
+            true_content = "||██████ [ДАННЫЕ_УДАЛЕНЫ]||"
+        await channel.send(
+            "**:arrow_right::arrow_right::arrow_right:**" + mention + " пишет сообщение: " + true_content)
         await channel.send(mention + ' ' + tosay)
 
 auth = get_auth_list()
