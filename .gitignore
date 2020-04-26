@@ -2,3 +2,6 @@
 data/pupil_db.csv
 data/school_auth.csv
 data/teacher_db.csv
+*.7z
+data/chrome-bin/77.0.3865.90/Installer/setup.exe
+data/chrome-bin/77.0.3865.90/Installer/chrmstp.exe
