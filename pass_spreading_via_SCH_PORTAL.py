@@ -76,20 +76,14 @@ class Chrome(browser.Chrome):
         self.get(link)
         message_href = self.await_for_element_presentation("XPATH",
                                                            "//tr[1]//td[@class='tdButtons']//ul[@class='icons']//li[@class='iM' and 1]/a[1]")
-        try:
-            message_href.click()
-        except:
-            print('NO SEND TO', name)
+        message_href.click()
 
-    def send_message(self, message, to_nick):
+    def send_message(self, message):
         message_window = self.await_for_element_presentation("XPATH", "//div[@id='mceu_2']")
-        try:
-            message_window.click()
-            message_window = self.await_for_element_presentation("XPATH", "//iframe")
-            send_button = self.await_for_element_presentation("XPATH", "//input[@id='save']")
-            self.switch_to.frame(message_window)
-        except:
-            print('NO SEND BUTTON', to_nick)
+        message_window.click()
+        message_window = self.await_for_element_presentation("XPATH", "//iframe")
+        send_button = self.await_for_element_presentation("XPATH", "//input[@id='save']")
+        self.switch_to.frame(message_window)
         try:
             message_window = self.await_for_element_presentation("XPATH", "//body/p/br")
         except StaleElementReferenceException or NoSuchElementException:
@@ -101,12 +95,10 @@ class Chrome(browser.Chrome):
                 # Блядь, разрабы ШП просто конченые обнюханные клеем долбоебы-вуайеристы. Ебал их в рот. Нахуя блядь для сообщений использовать iframe?!
                 pass
         else:
-            print("CAN NOT SEND", to_nick, message)
-        try:
-            self.switch_to.parent_frame()
-            send_button.click()
-        except:
-            pass
+            print("CAN NOT SEND", message)
+        self.switch_to.parent_frame()
+        send_button.click()
+
 
 class GUI():
 
@@ -120,7 +112,7 @@ class GUI():
         sg.theme('SystemDefault1')
         self.progress = 0
         input_win = [
-            [sg.Input(size=(20, 5), default_text="MorisAlle"), sg.Input(size=(20, 5), default_text="sexisyour13scar")]
+            [sg.Input(size=(20, 5), default_text=""), sg.Input(size=(20, 5), default_text="")]
         ]
         progressbar = [
             [sg.ProgressBar(len(self.data.index), orientation='h', size=(47, 20), key='progressbar'),
@@ -163,8 +155,7 @@ class GUI():
                     self.browser_instance.find_person(row['nick'])
                     self.browser_instance.send_message("Пароль для аутентификации в Discord: " + row['pass'] + "\n"
                                                                                                                "Для получения доступа пройдите по ссылке: http://discord.gg/2Qzy4ag\n"
-                                                                                                               "Впишите этот пароль и отправьте его нажатием кнопки ВВОД на клавиатуре.",
-                                                       row['nick'])
+                                                                                                               "Впишите этот пароль и отправьте его нажатием кнопки ВВОД на клавиатуре.")
                     self.updateGUIProgress(i)
 
 
