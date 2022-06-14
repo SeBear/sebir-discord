@@ -5,7 +5,7 @@ import os
 
 os.chdir(os.path.curdir+"\\data")
 bot = do.Bot(command_prefix=".")
-TOKEN = 'NzAxODc5NDY3NjA5Njg2MTM3.Xp8-UQ.5xIrSeITFCbUoZbngE3-De7QMyc'
+TOKEN = ''
 
 def get_auth_list():
     auth_list = pd.read_csv("school_auth.csv", sep=";", encoding="windows-1251")
